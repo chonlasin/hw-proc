@@ -1,0 +1,26 @@
+#include<fstream>
+#include<iostream>
+#include<string>
+
+using namespace std;
+#define infile "out.txt"
+int main()
+{
+    ofstream ods;
+    string id,name;
+    double salary;
+    ods.open(infile);
+    if(ods.fail()){
+        cerr<<"Can,t open"<<infile<<endl;
+        return EXIT_FAILURE;
+    }
+    cout<<"id=?"; cin>>id;
+    while(id != "###"){
+       cout<<"name=?"; cin>>name;
+       cout<<"salary=?"; cin>>salary;
+       ods<<id<<""<<name<<""<<endl;
+       cout<<"id=?"; cin>>id;
+    }
+    ods.close();
+    return 0;
+}               
