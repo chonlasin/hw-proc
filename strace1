@@ -1,0 +1,29 @@
+#include<fstream>
+#include<iostream>
+#include<string>
+#include<iomanip>
+
+using namespace std;
+#define infile "out.txt"
+int main()
+{
+    ifstream ids;
+    string id,name;
+    double salary,tax,net;
+    ids.open(infile);
+    if(ids.fail()){
+        cerr<<"Can,t open"<<infile<<endl;
+        return EXIT_FAILURE;
+    }
+    cout<<"id  name  salary  tax  net"<<endl;
+    ids>>id;
+    while(ids.eof()){
+        ids>>name>>salary;
+        tax = salary*10/100;
+        net = salary-tax;
+        cout<<id<<setw(3)<<name<<setw(3)<<salary<<setw(3)<<tax<<setw(3)<<net<<endl;
+        ids>>id;
+    }
+    ids.close();
+    return 0;
+}               
