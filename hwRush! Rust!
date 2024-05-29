@@ -1,0 +1,39 @@
+use std::collections::HashMap;
+use std::io;
+
+fn main() {
+    // function get score from user
+    fn get_input(prompt: &str) -> f64 {
+        let mut input = String::new();
+        println!("{}",prompt);
+        io::stdin().read_line(&mut input)
+          .expect("failed to read");
+        input.trim().parse::<f64>()
+          .expect("type number")
+    }
+
+    let lab_score = get_input("Enter lab score: ");
+    let exam_score = get_input("Enter exam score: ");
+    let lab_weight: f64 = 0.4;
+    let exam_weight: f64 = 0.6;
+
+    let total_score = (lab_score * lab_weight) + (exam_score * exam_weight);
+
+    let mut setgrade = HashMap::new();
+    setgrade.insert("A",80.0);
+    setgrade.insert("B+",75.0);
+    setgrade.insert("B",70.0);
+    setgrade.insert("C+",65.0);
+    setgrade.insert("C",60.0);
+    setgrade.insert("D+",55.0);
+    setgrade.insert("D",50.0);
+    setgrade.insert("F",00.0);
+
+    let grade = setgrade.iter()
+       .filter(|&(_,&boundary)| total_score >= boundary)
+       .max_by(|a,b|a.1.partial_cmp(b.1).unwrap())
+       .map(|(grade,_)|*grade)
+       .unwrap();
+
+       println!("totalscore = {:.2},grade = {}",total_score,grade);
+}
